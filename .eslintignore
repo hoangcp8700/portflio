@@ -1,0 +1,10 @@
+webpack.config.js
+server.js
+configs/
+tailwind.config.js
+node_modules
+./src/stories
+package-lock.json
+
+# production
+dist

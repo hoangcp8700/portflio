@@ -1,0 +1,123 @@
+/* stylelint-disable property-no-unknown */
+@use 'sass:math';
+@use 'sass:list';
+
+@mixin text-overflow($number: 2) {
+  -webkit-box-orient: vertical;
+  /* stylelint-disable-next-line value-no-vendor-prefix */
+  display: -webkit-box;
+  -webkit-line-clamp: ($number);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin aspect-ratio($width: 1, $height: 1) {
+  padding-bottom: math.div($height, $width) * 100%;
+}
+
+@mixin scroll-bars(
+  $size: 4,
+  $thumb-color: $black,
+  $track-color: $platinum,
+  $border-radius-track: 8,
+  $border-radius-thumb: 8,
+  $border-thumb: 2
+) {
+  // For Internet Explorer
+  scrollbar-face-color: $thumb-color;
+  scrollbar-track-color: $track-color;
+
+  // For Google Chrome
+  &::-webkit-scrollbar {
+    height: rem($size);
+    margin-right: rem(10);
+    width: rem($size);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $thumb-color;
+    border: rem($border-thumb) solid $track-color;
+    border-radius: rem($border-radius-thumb);
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $track-color;
+    border-radius: $border-radius-track;
+  }
+}
+
+@mixin inset {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+@mixin reset-button {
+  appearance: none;
+  background: none;
+  border: 0;
+  outline: none;
+}
+
+@mixin text-base($font-size: 16, $line-height: 1.5) {
+  @if $font-size {
+    font-size: rem($font-size);
+
+    @if $line-height < 2 {
+      line-height: rem($font-size * $line-height);
+    } @else {
+      line-height: rem($line-height);
+    }
+  }
+}
+
+@mixin style-text-background($color) {
+  background: $color;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+}
+
+@mixin adjust-flex($justify-content: center, $align-item: center) {
+  align-items: $align-item;
+  display: flex;
+  justify-content: $justify-content;
+}
+
+@mixin style-color {
+  @each $name, $color in $list-colors {
+    &-#{$name} {
+      color: $color;
+    }
+  }
+}
+
+@mixin container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: rem(16);
+  padding-right: rem(16);
+
+  @include break-min($standard-viewport) {
+    max-width: $standard-viewport;
+    padding-left: rem(120);
+    padding-right: rem(120);
+  }
+
+  @include desktop-down {
+    padding-left: rem(24);
+    padding-right: rem(24);
+  }
+
+  @include tablet-down {
+    padding-left: rem(16);
+    padding-right: rem(16);
+  }
+
+  @include mobile-down {
+    padding-left: rem(4);
+    padding-right: rem(4);
+  }
+}

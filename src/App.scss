@@ -1,0 +1,16 @@
+
+@import './styles';
+
+@import 'tailwindcss/base';
+
+.text-gray {
+  @apply text-gray-700 dark:text-white;
+}
+
+.bg-primary {
+  @apply  bg-gray-200 dark:bg-black;
+
+}
+
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
