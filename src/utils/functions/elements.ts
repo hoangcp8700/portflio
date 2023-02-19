@@ -21,3 +21,9 @@ export function withProperties<A, B extends object>(component: A, properties: B)
   });
   return Component as A & B;
 }
+
+export const mapModifiers = (baseClassName: string, ...modifiers: (string | string[] | false | undefined)[]): string =>
+  modifiers
+    .reduce<string[]>((acc, m) => (!m ? acc : [...acc, ...(typeof m === 'string' ? [m] : m)]), [])
+    .map((m) => `-${m}`)
+    .reduce<string>((classNames, suffix) => `${classNames} ${baseClassName}${suffix}`, baseClassName);

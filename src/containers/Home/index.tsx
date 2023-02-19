@@ -1,11 +1,14 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+// import { motion } from 'framer-motion';
 
-import { BannerHome, IntroduceHome } from './components';
+import BannerHome from '@components/templates/BannerHome';
+import React from 'react';
+
+import { IntroduceHome } from './components';
 
 const HomeContainer: React.FC = () => (
   <>
-    <motion.div
+    <BannerHome />
+    {/* <motion.div
       animate={{
         x: [3000, 2000, 500, 1000, 0],
       }}
@@ -17,7 +20,7 @@ const HomeContainer: React.FC = () => (
       }}
     >
       <BannerHome />
-    </motion.div>
+    </motion.div> */}
 
     <IntroduceHome />
   </>

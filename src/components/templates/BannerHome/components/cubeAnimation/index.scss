@@ -1,0 +1,137 @@
+$totalCube: 64;
+$col: 8;
+
+$containerSize: 300px;
+$cubeSize: ($containerSize / ($totalCube / $col));
+$facesPosition: ($cubeSize / 2)-0.2;
+$cubeMargin: 12px;
+$cubeRadius: 8px;
+
+$animationHeightCube: 15px;
+$animationDuration: 1.5s;
+$delayAnimation: 0.1;
+
+.t-wavingCubes {
+  padding-top: 60px;
+
+  &_wrapper {
+    height: $containerSize;
+    margin: auto;
+    perspective: 1000px;
+    position: relative;
+    transform-style: preserve-3d;
+    width: $containerSize;
+    @media (max-width: 767px) {
+      $containerSize: 200px;
+      $cubeSize: ($containerSize / ($totalCube / $col));
+      $facesPosition: ($cubeSize / 2)-0.2;
+    }
+  }
+
+  &_perspective {
+    transform: rotateX(60deg) rotateZ(25deg);
+    transform-style: preserve-3d;
+  }
+
+  &_cube,
+  &_cubeShadow {
+    background: #eee;
+    border-radius: $cubeRadius;
+    height: $cubeSize;
+    position: absolute;
+    transform-style: preserve-3d;
+    width: $cubeSize;
+  }
+
+  &_translateCubeShadow {
+    transform: translateZ(-40px);
+  }
+
+  &_cubeShadow {
+    animation: scale $animationDuration infinite ease-in-out;
+    transform: translateZ(-60px);
+  }
+
+  &_cube {
+    animation: rotation $animationDuration infinite ease-in-out;
+
+    div {
+      display: block;
+      height: 100%;
+      position: absolute;
+      width: 100%;
+    }
+
+    &-right {
+      background: #eee;
+      transform: rotateY(90deg) translateZ($facesPosition);
+    }
+
+    &-top {
+      background: #fafafa;
+      border-radius: 8px 0;
+      transform: rotateX(0deg) translateZ($facesPosition);
+    }
+
+    &-left {
+      background: #e0e0e0;
+      border-radius: 0 8px;
+      transform: rotateX(-90deg) translateZ($facesPosition);
+    }
+  }
+
+  $columns: ($totalCube / $col) - 1;
+  $cubeI: 0;
+  $delayI: 0;
+  @for $y from 0 through $columns {
+    $delayI: $y;
+    @for $x from 1 through $columns {
+      $cubeI: $cubeI + 1;
+      $delayI: $delayI + 1;
+      &_cube-#{$cubeI},
+      &_cubeShadow-#{$cubeI} {
+        animation-delay: ($delayAnimation * $delayI) + s;
+        left: $x * ($cubeSize + $cubeMargin);
+        top: $y * ($cubeSize + $cubeMargin);
+      }
+    }
+  }
+}
+
+@keyframes rotation {
+  0% {
+    transform: translateZ(0);
+  }
+
+  50% {
+    transform: translateZ($animationHeightCube);
+  }
+
+  100% {
+    transform: translateZ(0);
+  }
+}
+
+@keyframes rotationHover {
+  0% {
+    transform: translateZ(0);
+  }
+
+  100% {
+    transform: translateZ($animationHeightCube * 4);
+  }
+}
+
+@keyframes scale {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.75);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
