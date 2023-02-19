@@ -3,18 +3,19 @@ import { CONSTANT_ROUTE } from '@utils/constants';
 import { RouterProvider, createBrowserRouter, redirect } from 'react-router-dom';
 import useAuth from '@hooks/useAuth';
 import Loading from '@components/atoms/Loading';
-import { LayoutDefault, LayoutAuthenticate, LayoutDashboard } from '@components/common/Layout/';
+import { LayoutDefault, LayoutAuthenticate } from '@components/common/Layout/';
 import { ErrorBoundary } from '@components/templates/Error';
 
-import { Cart, Error, ForgotPassword, Home, Introduce, Login, Product, Register, Users } from './PageLazy';
+import { Error, ForgotPassword, Home, Login, Register } from './PageLazy';
 
 const AppRouter = () => {
-  const { redirectIfNotIsAdmin, redirectIfUser, redirectIfNotLogged } = useAuth();
+  const { redirectIfUser, redirectIfNotLogged } = useAuth();
   const router = useMemo(
     () =>
       createBrowserRouter([
         {
           loader: () => null,
+          errorElement: <ErrorBoundary />,
           children: [
             {
               path: CONSTANT_ROUTE.ROOT,
@@ -26,31 +27,6 @@ const AppRouter = () => {
                 {
                   path: CONSTANT_ROUTE.HOME,
                   element: <Home />,
-                },
-                {
-                  loader: redirectIfNotLogged,
-                  path: CONSTANT_ROUTE.CART,
-                  element: <Cart />,
-                },
-                {
-                  path: CONSTANT_ROUTE.PRODUCTS,
-                  element: <Product />,
-                },
-                {
-                  path: CONSTANT_ROUTE.INTRODUCE,
-                  element: <Introduce />,
-                },
-              ],
-            },
-            {
-              loader: redirectIfNotLogged,
-              element: <LayoutDashboard />,
-              children: [
-                {
-                  path: CONSTANT_ROUTE.USERS,
-                  loader: redirectIfNotIsAdmin,
-                  element: <Users />,
-                  errorElement: <ErrorBoundary />,
                 },
               ],
             },
