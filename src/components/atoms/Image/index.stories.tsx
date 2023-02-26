@@ -9,9 +9,17 @@ export default {
   argTypes: {
     ratio: {
       control: {
-        type: 'text',
+        type: 'select',
+        options: ['aspect-w-16 aspect-h-9', 'aspect-w-1 aspect-h-1', 'aspect-w-4 aspect-h-3'],
       },
-      defaultValue: 'aspect-w-1 aspect-h-1',
+      defaultValue: 'aspect-w-16 aspect-h-9',
+    },
+    sizes: {
+      control: {
+        type: 'select',
+        options: ['object-cover', 'object-contain', 'object-fill', 'object-none'],
+      },
+      defaultValue: 'object-cover',
     },
   },
 } as ComponentMeta<typeof Image>;

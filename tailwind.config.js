@@ -81,6 +81,9 @@ module.exports = {
         skeleton:
           'linear-gradient(90deg,rgba(190, 190, 190, 0.2) 25%, rgba(129, 129, 129, 0.24) 37%,  rgba(190, 190, 190, 0.2) 63%)',
       },
+      transitionProperty: {
+        inherit: 'inherit',
+      },
       transitionDuration: {
         2000: '2000ms',
         4000: '4000ms',

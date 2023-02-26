@@ -23,7 +23,7 @@ const Image: React.FC<ImageProps> = ({
   className,
   ...props
 }) => (
-  <div className={clsx('relative block overflow-hidden w-full', ratio, classNameWrapper)}>
+  <div className={clsx('relative block overflow-hidden w-full ease-in-out duration-300', ratio, classNameWrapper)}>
     <picture>
       <source media='(min-width:1024px)' srcSet={src} />
       {srcTablet && <source media='(min-width:768px)' srcSet={srcTablet} />}
@@ -32,11 +32,7 @@ const Image: React.FC<ImageProps> = ({
         src={src}
         alt={alt}
         loading={loading}
-        className={clsx(
-          'absolute h-full w-full left-0 top-0 object-cover transition ease-in-out duration-300',
-          sizes,
-          className,
-        )}
+        className={clsx('absolute h-full w-full left-0 top-0', sizes, className)}
         {...props}
       />
     </picture>
